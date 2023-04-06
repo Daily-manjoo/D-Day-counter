@@ -2,15 +2,20 @@
 <html lang="ko">
 <head>
     <title>D-Day</title>
-    <script>
-        const output = function (){
-            console.log('함수를 실행했어요.');
+    <script>        
+        const dateFormMaker = function(){
+            const inputYear = document.querySelector('#target-year-input').value;
+            const inputMonth = document.querySelector('#target-month-input').value;
+            const inputDate = document.querySelector('#target-date-input').value;
+
+            console.log(inputYear, inputMonth, inputDate);
         }
-        output()
     </script>
 </head>
 <body>
-    <input />
-    <button onclick="output()">버튼</button>
+    <input id="target-year-input" class="target-input" />
+    <input id="target-month-input" class="target-input" />
+    <input id="target-date-input" class="target-input" />
+    <button onclick="dateFormMaker()">버튼</button>
 </body>
 </html>
