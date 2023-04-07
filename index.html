@@ -9,13 +9,18 @@
             const inputDate = document.querySelector('#target-date-input').value;
 
             console.log(inputYear, inputMonth, inputDate);
-        }
+        };
+
+        const counterMake = function(){
+            const nowDate = new Date()
+            console.log(nowDate);
+        };
     </script>
 </head>
 <body>
     <input id="target-year-input" class="target-input" />
     <input id="target-month-input" class="target-input" />
     <input id="target-date-input" class="target-input" />
-    <button onclick="dateFormMaker()">버튼</button>
+    <button onclick="counterMake()">버튼</button>
 </body>
 </html>
