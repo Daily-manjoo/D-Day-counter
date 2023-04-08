@@ -13,7 +13,9 @@
 
         const counterMake = function(){
             const nowDate = new Date()
-            console.log(nowDate);
+            const targetDate = new Date('2023-07-01');
+            const remaining = (targetDate - nowDate) / 1000 //소수점 없애기
+            console.log(remaining);
         };
     </script>
 </head>
