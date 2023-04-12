@@ -1,5 +1,8 @@
 const messageContainer = document.querySelector('#d-day-message');
-messageContainer.textContent = 'D-Day를 입력해주세요.';
+const container = document.querySelector('#d-day-container')
+
+//container.style.display = 'none';
+messageContainer.innerHTML = '<h3>D-Day를 입력해주세요.</h3>';
 
 const dateFormMaker = function(){
     const inputYear = document.querySelector('#target-year-input').value;
@@ -19,14 +22,36 @@ const counterMake = function(){
     const targetDate = new Date(targetDateInput).setHours(0,0,0,0); //문자열 참조,setHours은 자정 기준으로 
     const remaining = (targetDate - nowDate) / 1000 //D-day까지 몇 초 남았는지, 1000 나눠서 소수점 없애기
     if(remaining < 0 ){
-        console.log('타이머가 종료되었습니다.');
+        messageContainer.innerHTML = '<h3>타이머가 종료되었습니다.</h3>';
     } else if(isNaN(remaining)) {
-        console.log('유효한 시간대가 아닙니다.')
+        messageContainer.innerHTML = '<h3>유효한 시간대가 아닙니다.</h3>';
     }
 
-    const remainingDate = Math.floor(remaining / 3600  / 24); //60분 = 3600초 , 남은 날 , 소수점 내리기(math.floor)
-    const remainingHours = Math.floor(remaining / 3600) % 24; //남은 날의 나머지 짜잘한 시간(나머지)
-    const remainingMin = Math.floor(remaining / 60) % 60;
-    const remainingSec = Math.floor(remaining) % 60;
-    console.log(remainingDate, remainingHours, remainingMin, remainingSec);
+    const remainingObj = {
+        remainingDate: Math.floor(remaining / 3600  / 24), //60분 = 3600초 , 남은 날 , 소수점 내리기(math.floor)
+        remainingHours: Math.floor(remaining / 3600) % 24, //남은 날의 나머지 짜잘한 시간(나머지)
+        remainingMin: Math.floor(remaining / 60) % 60,
+        remainingSec:  Math.floor(remaining) % 60
+    };
+
+
+    const documentObj = {
+        days: document.getElementById('days'),
+        hours: document.getElementById('hours'),
+        min: document.getElementById('min'),
+        sec: document.getElementById('sec'),
+    };
+
+    const timeKeys = Object.keys(remainingObj);
+    const docKeys = Object.keys(documentObj);
+
+    for(let i = 0; i < timeKeys.length; i++){
+        console.log(documentObj[docKeys[i]]);
+    }
+   
+    documentObj.days.textContent = remainingObj.remainingDate;
+    documentObj.hours.textContent = remainingObj.remainingHours;
+    documentObj.min.textContent = remainingObj.remainingMin;
+    documentObj.sec.textContent = remainingObj.remainingSec;
+
 };
