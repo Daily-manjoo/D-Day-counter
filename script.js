@@ -45,13 +45,19 @@ const counterMake = function(){
     const timeKeys = Object.keys(remainingObj);
     const docKeys = Object.keys(documentObj);
 
-    for(let i = 0; i < timeKeys.length; i++){
-        console.log(documentObj[docKeys[i]]);
+    /*for(let i = 0; i < timeKeys.length; i++){
+        documentObj[docKeys[i]].textContent = remainingObj[timeKeys[i]];
     }
-   
-    documentObj.days.textContent = remainingObj.remainingDate;
-    documentObj.hours.textContent = remainingObj.remainingHours;
-    documentObj.min.textContent = remainingObj.remainingMin;
-    documentObj.sec.textContent = remainingObj.remainingSec;
+   */
+    //documentObj.days.textContent = remainingObj.remainingDate; 위에 for문으로 대체
+    //documentObj.hours.textContent = remainingObj.remainingHours;
+    //documentObj.min.textContent = remainingObj.remainingMin;
+    //documentObj.sec.textContent = remainingObj.remainingSec;
+
+    let i = 0;
+    for (let key in documentObj) {
+        documentObj[key].textContent = remainingObj[timeKeys[i]]
+        i = i++;
+    }
 
 };
