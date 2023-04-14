@@ -23,8 +23,14 @@ const counterMake = function(){
     const remaining = (targetDate - nowDate) / 1000 //D-day까지 몇 초 남았는지, 1000 나눠서 소수점 없애기
     if(remaining < 0 ){
         messageContainer.innerHTML = '<h3>타이머가 종료되었습니다.</h3>';
+        container.style.display = 'none'
+        messageContainer.style.display = 'flex';
+        return; //종료될 때 함수 종료
     } else if(isNaN(remaining)) {
         messageContainer.innerHTML = '<h3>유효한 시간대가 아닙니다.</h3>';
+        container.style.display = 'none'
+        messageContainer.style.display = 'flex';
+        return;
     }
 
     const remainingObj = {
@@ -49,7 +55,8 @@ const counterMake = function(){
 };
 
 const starter = function(){
-    container.style.display = 'flex'
-    messageContainer.style.display = 'none'
-    counterMake();
+    container.style.display = 'flex';
+    messageContainer.style.display = 'none';
+    counterMake(); //counterMake 함수 한번 실행해주지 않으면 아랫줄에서 1초 뒤에 실행하기 때문
+    setInterval(counterMake, 1000); 
 }
