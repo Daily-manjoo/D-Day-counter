@@ -1,7 +1,7 @@
 const messageContainer = document.querySelector('#d-day-message');
 const container = document.querySelector('#d-day-container')
 
-//container.style.display = 'none';
+container.style.display = 'none';
 messageContainer.innerHTML = '<h3>D-Day를 입력해주세요.</h3>';
 
 const dateFormMaker = function(){
@@ -35,29 +35,21 @@ const counterMake = function(){
     };
 
 
-    const documentObj = {
-        days: document.getElementById('days'),
-        hours: document.getElementById('hours'),
-        min: document.getElementById('min'),
-        sec: document.getElementById('sec'),
-    };
+    
 
+    const documentArr = ['days', 'hours', 'min', 'sec']
     const timeKeys = Object.keys(remainingObj);
     // ['remainingDate', 'remainingHours'...]
 
-    /*for(let i = 0; i < timeKeys.length; i++){
-        documentObj[docKeys[i]].textContent = remainingObj[timeKeys[i]];
-    }
-   */
-    //documentObj.days.textContent = remainingObj.remainingDate; 위에 for문으로 대체
-    //documentObj.hours.textContent = remainingObj.remainingHours;
-    //documentObj.min.textContent = remainingObj.remainingMin;
-    //documentObj.sec.textContent = remainingObj.remainingSec;
-
     let i = 0;
-    for (let key in documentObj) {
-        documentObj[key].textContent = remainingObj[timeKeys[i]] //요소 하나하나에 접근
+    for(let tag of documentArr){
+        document.getElementById(tag).textContent = remainingObj[timeKeys[i]]
         i++;
     }
-
 };
+
+const starter = function(){
+    container.style.display = 'flex'
+    messageContainer.style.display = 'none'
+    counterMake();
+}
