@@ -43,7 +43,7 @@ const counterMake = function(){
     };
 
     const timeKeys = Object.keys(remainingObj);
-    const docKeys = Object.keys(documentObj);
+    // ['remainingDate', 'remainingHours'...]
 
     /*for(let i = 0; i < timeKeys.length; i++){
         documentObj[docKeys[i]].textContent = remainingObj[timeKeys[i]];
@@ -56,8 +56,8 @@ const counterMake = function(){
 
     let i = 0;
     for (let key in documentObj) {
-        documentObj[key].textContent = remainingObj[timeKeys[i]]
-        i = i++;
+        documentObj[key].textContent = remainingObj[timeKeys[i]] //요소 하나하나에 접근
+        i++;
     }
 
 };
