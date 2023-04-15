@@ -1,5 +1,6 @@
 const messageContainer = document.querySelector('#d-day-message');
 const container = document.querySelector('#d-day-container')
+const intervalIdArr = [];
 
 container.style.display = 'none';
 messageContainer.innerHTML = '<h3>D-Day를 입력해주세요.</h3>';
@@ -59,9 +60,17 @@ const starter = function(){
     messageContainer.style.display = 'none';
     counterMake(); //counterMake 함수 한번 실행해주지 않으면 아랫줄에서 1초 뒤에 실행하기 때문
     const intervalId = setInterval(counterMake, 1000);
+    intervalIdArr.push(intervalId);
+    console.log(intervalIdArr);
 
 };
 
 const setClearInterval = function (){
-    
+    container.style.display = 'none';
+    messageContainer.innerHTML = '<h3>D-Day를 입력해주세요.</h3>';
+    messageContainer.style.display = 'flex';
+    for (let i = 0; i < intervalIdArr.length; i++){
+        clearInterval(intervalIdArr[i]);
+    }
+
 }
