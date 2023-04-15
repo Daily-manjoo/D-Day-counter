@@ -58,5 +58,10 @@ const starter = function(){
     container.style.display = 'flex';
     messageContainer.style.display = 'none';
     counterMake(); //counterMake 함수 한번 실행해주지 않으면 아랫줄에서 1초 뒤에 실행하기 때문
-    setInterval(counterMake, 1000); 
+    const intervalId = setInterval(counterMake, 1000);
+
+};
+
+const setClearInterval = function (){
+    
 }
