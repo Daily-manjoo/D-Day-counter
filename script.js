@@ -26,11 +26,13 @@ const counterMake = function(){
         messageContainer.innerHTML = '<h3>타이머가 종료되었습니다.</h3>';
         container.style.display = 'none'
         messageContainer.style.display = 'flex';
+        setClearInterval() //타이머 종료돼야 할 조건
         return; //종료될 때 함수 종료
     } else if(isNaN(remaining)) {
         messageContainer.innerHTML = '<h3>유효한 시간대가 아닙니다.</h3>';
         container.style.display = 'none'
         messageContainer.style.display = 'flex';
+        setClearInterval() //타이머 종료돼야 할 조건
         return;
     }
 
@@ -56,21 +58,25 @@ const counterMake = function(){
 };
 
 const starter = function(){
+    const targetDateInput = dateFormMaker()
     container.style.display = 'flex';
     messageContainer.style.display = 'none';
     counterMake(); //counterMake 함수 한번 실행해주지 않으면 아랫줄에서 1초 뒤에 실행하기 때문
     const intervalId = setInterval(counterMake, 1000);
     intervalIdArr.push(intervalId);
-    console.log(intervalIdArr);
 
 };
 
 const setClearInterval = function (){
-    container.style.display = 'none';
-    messageContainer.innerHTML = '<h3>D-Day를 입력해주세요.</h3>';
-    messageContainer.style.display = 'flex';
     for (let i = 0; i < intervalIdArr.length; i++){
         clearInterval(intervalIdArr[i]);
     }
+}
+
+const resetTImer = function () {
+    container.style.display = 'none';
+    messageContainer.innerHTML = '<h3>D-Day를 입력해주세요.</h3>';
+    messageContainer.style.display = 'flex';
+    setClearInterval();
 
 }
