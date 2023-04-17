@@ -21,6 +21,9 @@ const dateFormMaker = function(){
 };
 
 const counterMake = function(data){
+    if(data !== savedDate) {
+        localStorage.setItem('saved-date' , data); //키, 밸류형식
+    }
     const nowDate = new Date()
     const targetDate = new Date(data).setHours(0,0,0,0); //문자열 참조,setHours은 자정 기준으로 
     const remaining = (targetDate - nowDate) / 1000 //D-day까지 몇 초 남았는지, 1000 나눠서 소수점 없애기
@@ -65,12 +68,10 @@ const counterMake = function(data){
     }
 };
 
-const starter = function(targetDateInput){
+const starter = function(targetDateInput){ //매개변수로 들어온 경우 재할당 가능(바깥쪽에서도 참조 가능)
     if (!targetDateInput){ //들어온 값이 없을 경우
         targetDateInput = dateFormMaker();
     }
-    localStorage.setItem('saved-date',targetDateInput); //키, 밸류형식
-
     container.style.display = 'flex';
     messageContainer.style.display = 'none';
     setClearInterval();
@@ -82,12 +83,13 @@ const starter = function(targetDateInput){
 };
 
 const setClearInterval = function (){
+    localStorage.removeItem('saved-date');
     for (let i = 0; i < intervalIdArr.length; i++){
         clearInterval(intervalIdArr[i]);
     }
 };
 
-const resetTImer = function () {
+const resetTimer = function () {
     container.style.display = 'none';
     messageContainer.innerHTML = '<h3>D-Day를 입력해주세요.</h3>';
     messageContainer.style.display = 'flex';
@@ -98,5 +100,6 @@ const resetTImer = function () {
 if (savedDate) { //truthy인 경우
     starter(savedDate);
 } else {
-    console.log('data is null');
+    container.style.display = 'none';
+    messageContainer.innerHTML = '<h3>D-Day를 입력해주세요.</h3>';
 }
