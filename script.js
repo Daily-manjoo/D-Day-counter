@@ -1,9 +1,12 @@
 const messageContainer = document.querySelector('#d-day-message');
 const container = document.querySelector('#d-day-container')
+const savedDate = localStorage.getItem('saved-date') //가져올 키
+
 const intervalIdArr = [];
 
 container.style.display = 'none';
 messageContainer.innerHTML = '<h3>D-Day를 입력해주세요.</h3>';
+
 
 const dateFormMaker = function(){
     const inputYear = document.querySelector('#target-year-input').value;
@@ -17,10 +20,9 @@ const dateFormMaker = function(){
     // console.log(inputYear, inputMonth, inputDate);
 };
 
-const counterMake = function(){
-    const targetDateInput = dateFormMaker()
+const counterMake = function(data){
     const nowDate = new Date()
-    const targetDate = new Date(targetDateInput).setHours(0,0,0,0); //문자열 참조,setHours은 자정 기준으로 
+    const targetDate = new Date(data).setHours(0,0,0,0); //문자열 참조,setHours은 자정 기준으로 
     const remaining = (targetDate - nowDate) / 1000 //D-day까지 몇 초 남았는지, 1000 나눠서 소수점 없애기
     if(remaining < 0 ){
         messageContainer.innerHTML = '<h3>타이머가 종료되었습니다.</h3>';
@@ -43,35 +45,47 @@ const counterMake = function(){
         remainingSec:  Math.floor(remaining) % 60
     };
 
-
-    
-
     const documentArr = ['days', 'hours', 'min', 'sec']
     const timeKeys = Object.keys(remainingObj);
     // ['remainingDate', 'remainingHours'...]
 
+    const format = function (time) {
+        if (time<10) {
+            return '0' + time;
+        } else {
+            return time;
+        }
+    }
+
     let i = 0;
     for(let tag of documentArr){
-        document.getElementById(tag).textContent = remainingObj[timeKeys[i]]
+        const remainingTime = format(remainingObj[timeKeys[i]]);
+        document.getElementById(tag).textContent = remainingTime;
         i++;
     }
 };
 
-const starter = function(){
-    const targetDateInput = dateFormMaker()
+const starter = function(targetDateInput){
+    if (!targetDateInput){ //들어온 값이 없을 경우
+        targetDateInput = dateFormMaker();
+    }
+    localStorage.setItem('saved-date',targetDateInput); //키, 밸류형식
+
     container.style.display = 'flex';
     messageContainer.style.display = 'none';
-    counterMake(); //counterMake 함수 한번 실행해주지 않으면 아랫줄에서 1초 뒤에 실행하기 때문
-    const intervalId = setInterval(counterMake, 1000);
+    setClearInterval();
+    counterMake(targetDateInput); //counterMake 함수 한번 실행해주지 않으면 아랫줄에서 1초 뒤에 실행하기 때문
+    const intervalId = setInterval(()=> {
+        counterMake(targetDateInput);
+    }, 1000); //함수실행하면 한번밖에 실행 안돼서 화살표 함수 넣어줌
     intervalIdArr.push(intervalId);
-
 };
 
 const setClearInterval = function (){
     for (let i = 0; i < intervalIdArr.length; i++){
         clearInterval(intervalIdArr[i]);
     }
-}
+};
 
 const resetTImer = function () {
     container.style.display = 'none';
@@ -79,4 +93,10 @@ const resetTImer = function () {
     messageContainer.style.display = 'flex';
     setClearInterval();
 
+}
+
+if (savedDate) { //truthy인 경우
+    starter(savedDate);
+} else {
+    console.log('data is null');
 }
