@@ -32,7 +32,7 @@ const counterMake = function(data){
         container.style.display = 'none'
         messageContainer.style.display = 'flex';
         setClearInterval() //타이머 종료돼야 할 조건
-        return; //종료될 때 함수 종료
+        return; //조건 해당하면 함수 종료
     } else if(isNaN(remaining)) {
         messageContainer.innerHTML = '<h3>유효한 시간대가 아닙니다.</h3>';
         container.style.display = 'none'
