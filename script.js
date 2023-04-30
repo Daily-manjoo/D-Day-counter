@@ -25,8 +25,8 @@ const counterMake = function (data) {
   }
   const nowDate = new Date();
   const targetDate = new Date(data).setHours(0, 0, 0, 0); //문자열 참조,setHours은 자정 기준으로
-  const remaining = (targetDate - nowDate) / 1000; //D-day까지 몇 초 남았는지, 1초는 1000밀리초다. 
-  if (remaining <h3 0) {
+  const remaining = (targetDate - nowDate) / 1000; //D-day까지 몇 초 남았는지, 1초는 1000밀리초다.
+  if (remaining <= 0) {
     messageContainer.innerHTML = "<h3>타이머가 종료되었습니다.</h3>";
     container.style.display = "none";
     messageContainer.style.display = "flex";
@@ -42,7 +42,7 @@ const counterMake = function (data) {
 
   const remainingObj = {
     remainingDate: Math.floor(remaining / 3600 / 24), //60분 = 3600초 , 남은 날 , 소수점 내리기(math.floor)
-    remainingHours: Math.floor(remaining / 3600) % 24, //302시간을 24시간 기준으로 나눠야하기때문
+    remainingHours: Math.floor(remaining / 3600) % 24, //302시간을 24시간 기준으로 나눔
     remainingMin: Math.floor(remaining / 60) % 60,
     remainingSec: Math.floor(remaining) % 60,
   };
